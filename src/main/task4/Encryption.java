@@ -9,8 +9,6 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.AlgorithmParameters;
 import java.security.GeneralSecurityException;
@@ -37,23 +35,22 @@ public class Encryption {
                 salt, iterationCount, keyLength);
 
 
-        /*a. Шифрует пароль с использованием ключа, который также вшифровывается в результат шифрования;**/
-        String encryptedPassword = encrypt(password, key);
-
-        /*d. Без внешне передаваемого ключа шифрования.
-        Ключ шифрования должен генерироваться самой программой и становится частью шифра, но только так, чтобы его нельзя было легко вычленить.*/
-        String encryptedPassKey = base64Encode((encryptedPassword + " " + keyWord).getBytes());
-
-        /*b. Создаёт новый файл с шифрованным паролем и удаляет старый файл с открытым паролем;*/
-        //reFile(login, encryptedPassKey, way);
-
-        /*c. Другой метод того же класса должен уметь расшифровать таким образом зашифрованный пароль из файла с шифрованным паролем и
-        печатать расшифрованный пароль в консоль, исходный файл с расшифрованным паролем создавать не надо;*/
-        decryptKey(password);
-
         System.out.println("password: " + password);
-        //System.out.println("Encrypted password: " + encryptedPassword);
-        System.out.println("Encrypted passkey: " + encryptedPassKey);
+        /*a. РЁРёС„СЂСѓРµС‚ РїР°СЂРѕР»СЊ СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј РєР»СЋС‡Р°, РєРѕС‚РѕСЂС‹Р№ С‚Р°РєР¶Рµ РІС€РёС„СЂРѕРІС‹РІР°РµС‚СЃСЏ РІ СЂРµР·СѓР»СЊС‚Р°С‚ С€РёС„СЂРѕРІР°РЅРёСЏ;**/
+        String encryptedPassword = encrypt(password, key);
+        System.out.println("Encrypted password: " + encryptedPassword);
+
+        /*d. Р‘РµР· РІРЅРµС€РЅРµ РїРµСЂРµРґР°РІР°РµРјРѕРіРѕ РєР»СЋС‡Р° С€РёС„СЂРѕРІР°РЅРёСЏ.
+        РљР»СЋС‡ С€РёС„СЂРѕРІР°РЅРёСЏ РґРѕР»Р¶РµРЅ РіРµРЅРµСЂРёСЂРѕРІР°С‚СЊСЃСЏ СЃР°РјРѕР№ РїСЂРѕРіСЂР°РјРјРѕР№ Рё СЃС‚Р°РЅРѕРІРёС‚СЃСЏ С‡Р°СЃС‚СЊСЋ С€РёС„СЂР°, РЅРѕ С‚РѕР»СЊРєРѕ С‚Р°Рє, С‡С‚РѕР±С‹ РµРіРѕ РЅРµР»СЊР·СЏ Р±С‹Р»Рѕ Р»РµРіРєРѕ РІС‹С‡Р»РµРЅРёС‚СЊ.*/
+        String encryptedPassKey = base64Encode((encryptedPassword + " " + keyWord).getBytes());
+        System.out.println("Encrypted Pass+key: " + encryptedPassKey);
+
+        /*b. РЎРѕР·РґР°С‘С‚ РЅРѕРІС‹Р№ С„Р°Р№Р» СЃ С€РёС„СЂРѕРІР°РЅРЅС‹Рј РїР°СЂРѕР»РµРј Рё СѓРґР°Р»СЏРµС‚ СЃС‚Р°СЂС‹Р№ С„Р°Р№Р» СЃ РѕС‚РєСЂС‹С‚С‹Рј РїР°СЂРѕР»РµРј;*/
+        reFile(login, encryptedPassKey, way);
+
+        /*c. Р”СЂСѓРіРѕР№ РјРµС‚РѕРґ С‚РѕРіРѕ Р¶Рµ РєР»Р°СЃСЃР° РґРѕР»Р¶РµРЅ СѓРјРµС‚СЊ СЂР°СЃС€РёС„СЂРѕРІР°С‚СЊ С‚Р°РєРёРј РѕР±СЂР°Р·РѕРј Р·Р°С€РёС„СЂРѕРІР°РЅРЅС‹Р№ РїР°СЂРѕР»СЊ РёР· С„Р°Р№Р»Р° СЃ С€РёС„СЂРѕРІР°РЅРЅС‹Рј РїР°СЂРѕР»РµРј Рё
+        РїРµС‡Р°С‚Р°С‚СЊ СЂР°СЃС€РёС„СЂРѕРІР°РЅРЅС‹Р№ РїР°СЂРѕР»СЊ РІ РєРѕРЅСЃРѕР»СЊ, РёСЃС…РѕРґРЅС‹Р№ С„Р°Р№Р» СЃ СЂР°СЃС€РёС„СЂРѕРІР°РЅРЅС‹Рј РїР°СЂРѕР»РµРј СЃРѕР·РґР°РІР°С‚СЊ РЅРµ РЅР°РґРѕ;*/
+        //decryptPassKey(password);
     }
 
     private static SecretKeySpec createSecretKey(char[] password, byte[] salt, int iterationCount, int keyLength) throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -85,7 +82,7 @@ public class Encryption {
         return new String(pbeCipher.doFinal(base64Decode(property)), StandardCharsets.UTF_8);
     }
 
-    private static void decryptKey(String encryptedPassKey) throws GeneralSecurityException {
+    private static void decryptPassKey(String encryptedPassKey) throws GeneralSecurityException {
         String[] enc = new String(base64Decode(encryptedPassKey), StandardCharsets.UTF_8).split(" ");
         String decryptedPassword = decrypt(enc[0], createSecretKey(enc[1].toCharArray(), salt, iterationCount, keyLength));
         System.out.println("Decrypted password: " + decryptedPassword);

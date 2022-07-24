@@ -14,9 +14,9 @@ public abstract class EditFile {
     public static void reFile(String login, String password, String way) {
         File f = new File(way);
         if (f.delete()) {
-            System.out.println("del");
             try {
                 f.createNewFile();
+                System.out.println("refile");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
