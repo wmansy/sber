@@ -1,4 +1,4 @@
-package main.task4;
+package java.task4;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.json.simple.JSONObject;
@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
-import static main.task4.EditFile.*;
+import static java.task4.EditFile.*;
 
 public class Encryption {
     private static final String way = "src\\main\\task4\\auth.json";

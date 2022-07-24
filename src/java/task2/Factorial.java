@@ -1,4 +1,4 @@
-package main.task2;
+package java.task2;
 
 public abstract class Factorial {
     protected int factorial(int n) {
