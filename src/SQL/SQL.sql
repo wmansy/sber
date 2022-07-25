@@ -88,7 +88,7 @@ commit;
 with days as (
     select to_char(max(end_ts) - min(start_ts), 'DD')::integer as nday from log2)
 
-select time, count(oper_id)/nday as avg_oper
+select time, round(count(oper_id)/nday) as avg_oper
 from (
     select to_char(start_ts, 'HH24:00') as time, oper_id from log2
     union
